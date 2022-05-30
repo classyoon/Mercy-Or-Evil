@@ -19,10 +19,13 @@ struct ContentView: View {
     @State var mercyCount = 0
     let painNoises = [ "Ooof! ", "Reee! ", "Agggh! ", "Grk! ", "Help! ", "Mercy Please!", "OW!", "AHHH THE PAIN!", "STOP IT!", "@!#$@$##@$!", "Who do you think you are?!"]
     let idle = ["Whoever you are don't touch the buttons.  It's better for the both of us.", "I can't help but feel I know you. Who are you?", "I keep forgetting. Why am I here?", "I'm having some desha fu. I swear I've seen this place before.", "Who are you?", "Sup", "...", "What's your name?", "Is something happening there?", "I swear I am repeating myself, but I can't help it"]
-    let bored = ["Helloooo?", "Is this thing on?  I can't hear you.", "uggh, I'm getting bored. Want to play a game?", "Silent type, I get it.", "Ugh, man this place is cramped", "What the heck am I doing here?"]
-    let wary = ["...", "okay", "Well, I guess this is better than other things happening","What are you doing?", "thanks... I guess"]
-    let hostile =  ["sus", "I'm watching you", "*intense glare*", "I know you're thinking about it."]
-    let suprise = ["Wah!", "Noo-!", "Oh Go-!", "Ga-!", "Oh I swear-!", "Why?!"]
+    let bored = ["Helloooo?", "Helloooo?", "Helloooo?", "Is this thing on?  I can't hear you.", "I keep forgetting. Why am I here?", "uggh, I'm getting bored. Want to play a game?", "Silent type, I get it.", "Ugh, man this place is cramped", "What the heck am I doing here?", "I'm having some desha fu. I swear I've seen this place before.", "Wanna talk?"]
+    let wary = ["...", "okay", "Well, I guess this is better than other things happening","What are you doing?", "thanks for stopping... I guess", "*cowers in fear*", "At least it stopped"]
+    let hostile =  ["sus", "I'm watching you", "*intense glare*", "I know you're thinking about it.", "I know you're thinking about it.", "thanks... I guess", "*cowers in fear*", "*cowers in fear*", "Imma get you", "You know not what you do"]
+    let suprise = ["Wah!", "Noo-!", "Oh Go-!", "Ga-!", "Why?!"]
+//    let resigned = ["Wah!", "Noo-!", "Oh Go-!", "Ga-!", "Oh I swear-!", "Why?!", "Not again!"]
+    let relief = ["Phew", "No more. okay?", "Why did you do that?", "Never again"]
+    let fear = ["Why did you do that?", "Thank goodness you stopped", "*gasp* I can breath again", "*cowers in fear*",  "*cowers in fear*"]
     @State var buttonlabel : String
     @State var imageName = ""
     var body: some View {
@@ -109,7 +112,7 @@ extension ContentView {
         screamCount+=1
         evilCount+=1
         buttonlabel=painNoises[Int.random(in: 0..<painNoises.count)]
-        if mercy {
+        if mercy {// If you were nice before then suddenly evil you will get suprise
             buttonlabel = suprise[Int.random(in: 0..<suprise.count)]
             mercyCount = 0
             mercy = false
@@ -121,26 +124,26 @@ extension ContentView {
         imageName = "Joy"
         switch screamCount {
         case 0:
-            if evil {
-                if evilCount<5{
+            if evil { //If you have been mean
+                if evilCount<15{
                 buttonlabel = wary[Int.random(in: 0..<wary.count)]
-                }
+                }//at first wary
                 else{
-                    buttonlabel = hostile[Int.random(in: 0..<hostile.count)]
+                    buttonlabel = hostile[Int.random(in: 0..<hostile.count)]//then hostile
                 }
             }
-            else{
-                if mercyCount < 10 {
-            buttonlabel = idle[Int.random(in: 0..<idle.count)]
+            else{//if you haven't been mean
+                if mercyCount < 20 {
+            buttonlabel = idle[Int.random(in: 0..<idle.count)]//at first idle
                 }
                 else {
-                    buttonlabel = bored[Int.random(in: 0..<bored.count)]
+                    buttonlabel = bored[Int.random(in: 0..<bored.count)]//then bored
                 }
             }
         case 1...3:
-            buttonlabel = "Phew."
+            buttonlabel = relief[Int.random(in: 0..<relief.count)]
         case 4...8:
-            buttonlabel = "What were you doing?"
+            buttonlabel = fear[Int.random(in: 0..<fear.count)]
         case 9...15:
             buttonlabel = "OMG. I thought you'd never stop.  Please now.  Don't touch do whatever you did, again"
         default:
